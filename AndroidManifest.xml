@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2011 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<!-- Declare the contents of this Android application.  The namespace
+     attribute brings in the Android platform namespace, and the package
+     supplies a unique name for the application.  When writing your
+     own application, the package name must be changed from "com.example.*"
+     to come from a domain that you own or have control over. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.gbbtbb.shoppinglistwidget"
+    android:versionName="ShoppingList v1"
+    android:versionCode="1">
+    <uses-sdk android:minSdkVersion="11" android:targetSdkVersion="18"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application android:label="Shopping List Widget"
+        android:icon="@drawable/shopcart_add_button"
+        android:allowBackup="true">
+        <!-- The widget provider -->
+        <receiver android:name="ShoppingListWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <!-- This specifies the widget provider info -->
+            <meta-data android:name="android.appwidget.provider"
+                    android:resource="@xml/widgetinfo" />
+        </receiver>
+
+        <!-- The service serving the RemoteViews to the collection widget -->
+        <service android:name="ShoppingListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false" />
+
+        <provider android:name="ShoppingListDataProvider"
+            android:exported="true"
+              android:authorities="com.gbbtbb.shoppinglistwidget.provider" />
+        
+        <activity  android:name=".DeleteItemMenuActivity"
+                   android:label="@string/title_activity_popup_menu"
+                   android:theme="@android:style/Theme.Dialog">
+        </activity>
+        <activity  android:name=".AddItemMenuActivity"
+                   android:label="@string/title_activity_additem_menu"
+                   android:theme="@android:style/Theme.Dialog">
+        </activity>  
+        <activity  android:name=".CleanListMenuActivity"
+                   android:label="@string/title_activity_cleanlist_menu"
+                   android:theme="@android:style/Theme.Dialog">
+        </activity> 
+                 
+    </application>
+</manifest>
